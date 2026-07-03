@@ -17,6 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.Component.textOfChildren;
+
 @Singleton
 public class WildFakeplayerManager implements PluginMessageListener {
 
@@ -111,7 +114,11 @@ public class WildFakeplayerManager implements PluginMessageListener {
 
             if (delay <= 0) {
                 for (var target : targets) {
-                    manager.remove(target.getName(), "Creator offline");
+                    manager.cleanup(target);
+                    target.kick(textOfChildren(
+                        text("[fakeplayer] "),
+                        text("Creator offline")
+                    ));
                     log.info("%s is offline more than %d ticks, removing %d fake players".formatted(
                             creator,
                             CLEANUP_PERIOD * CLEANUP_THRESHOLD,
@@ -126,7 +133,13 @@ public class WildFakeplayerManager implements PluginMessageListener {
                 removeTask.put(creator, Bukkit.getAsyncScheduler().runDelayed(Main.getInstance(), task -> {
                     if (Bukkit.getPlayerExact(creator) == null) {
                         for (Player target : targets) {
-                            Bukkit.getGlobalRegionScheduler().run(Main.getInstance(), t -> manager.remove(target.getName(), "Creator offline"));
+                            Bukkit.getGlobalRegionScheduler().run(Main.getInstance(), t -> {
+                                manager.cleanup(target);
+                                target.kick(textOfChildren(
+                                    text("[fakeplayer] "),
+                                    text("Creator offline")
+                                ));
+                            });
                         }
                         log.info("%s 离线时间超过 %d 分钟，删除了 %d 假玩家".formatted(
                                 creator,
