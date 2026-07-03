@@ -28,7 +28,7 @@ English | 简体中文
 
 ## 前置插件:
 
-- [CommandAPI](https://commandapi.jorel.dev) (>=9.5.0, <= 9.7.0)
+- [CommandAPI](https://commandapi.jorel.dev) (>=11.2.0) — Paper 服务端推荐使用 `CommandAPI-11.2.0-Paper`
 
 ## 配置文件
 

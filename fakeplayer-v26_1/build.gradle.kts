@@ -12,7 +12,7 @@ dependencies {
     compileOnly(project(":fakeplayer-api"))
     compileOnly(project(":fakeplayer-core"))
 
-    compileOnly("dev.jorel:commandapi-bukkit-core:10.0.0")
+    compileOnly("dev.jorel:commandapi-paper-core:11.2.0")
     compileOnly("com.mojang:authlib:4.0.43")
     compileOnly("com.mojang:brigadier:1.1.8")
     compileOnly("io.netty:netty-transport:4.1.82.Final")
