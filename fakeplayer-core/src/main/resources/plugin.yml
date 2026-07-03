@@ -1,7 +1,7 @@
 name: fakeplayer
 version: '${revision}'
 main: io.github.hello09x.fakeplayer.core.Main
-api-version: '1.20'
+api-version: '26.1.2'
 authors: ["hello09x", "GreenBn"]
 website: 'https://github.com/Pstar233/minecraft-fakeplayer-folia'
 folia-supported: true

@@ -2,19 +2,15 @@ plugins {
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
 }
 
-
-
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
-
 dependencies {
-    paperweight.foliaDevBundle("1.20.6-R0.1-SNAPSHOT")
+    paperweight.foliaDevBundle("26.1.2.build.8-stable")
 
     compileOnly(project(":fakeplayer-api"))
     compileOnly(project(":fakeplayer-core"))
-    compileOnly(project(":fakeplayer-v1_21"))
 
     compileOnly("dev.jorel:commandapi-bukkit-core:10.0.0")
     compileOnly("com.mojang:authlib:4.0.43")
@@ -27,3 +23,4 @@ dependencies {
     implementation("com.github.tanyaofei.devtools:devtools-command:0.1.6-SNAPSHOT")
     implementation("com.github.tanyaofei.devtools:devtools-database:0.1.6-SNAPSHOT")
 }
+

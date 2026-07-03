@@ -129,3 +129,22 @@ server/
 buildtool/
 
 .flattened-pom.xml
+
+# Build output
+build/
+target/
+
+# Gradle cache
+.gradle/
+.gradle
+
+# IDE
+.idea/
+*.iml
+
+# OS
+Thumbs.db
+.DS_Store
+
+# OMO
+.omo/

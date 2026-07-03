@@ -1,5 +1,5 @@
 plugins {
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.18"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
 }
 
 
@@ -10,7 +10,7 @@ repositories {
 
 
 dependencies {
-    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("26.1.2.build.72-stable")
 
     compileOnly(project(":fakeplayer-api"))
 

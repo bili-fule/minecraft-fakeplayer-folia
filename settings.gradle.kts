@@ -9,7 +9,8 @@ include(
         "fakeplayer-v1_21_6",
         "fakeplayer-v1_21_7",
         "fakeplayer-v1_21_8",
-        "fakeplayer-v1_21_11"
+        "fakeplayer-v1_21_11",
+        "fakeplayer-v26_1"
 )
 
 pluginManagement {

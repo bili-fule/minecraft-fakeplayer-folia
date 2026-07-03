@@ -1,7 +1,7 @@
 paperweight.reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
 plugins {
     id("java")
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.18"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
 }
 
 allprojects {
@@ -23,7 +23,7 @@ allprojects {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.8-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("26.1.2.build.72-stable")
 
     compileOnly(project(":fakeplayer-api"))
     compileOnly(project(":fakeplayer-core"))
@@ -35,7 +35,7 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(21))
+            languageVersion.set(JavaLanguageVersion.of(26))
         }
     }
 
@@ -45,8 +45,8 @@ subprojects {
 
     dependencies {
         //compileOnly("io.papermc.paper:paper-api:1.21.7-R0.1-SNAPSHOT")
-        compileOnly("org.projectlombok:lombok:1.18.34")
-        annotationProcessor("org.projectlombok:lombok:1.18.34")
+        compileOnly("org.projectlombok:lombok:1.18.46")
+        annotationProcessor("org.projectlombok:lombok:1.18.46")
     }
 
     tasks.processResources {

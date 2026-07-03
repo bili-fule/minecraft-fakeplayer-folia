@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "9.4.3"
 }
 
 group = "io.github.hello09x.fakeplayer"
@@ -8,7 +8,7 @@ version = rootProject.version
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(26))
     }
 }
 
@@ -16,25 +16,11 @@ dependencies {
     implementation(project(":fakeplayer-core"))
     implementation(project(":fakeplayer-api"))
 
-    //implementation(project(":fakeplayer-v1_20_1"))
-    //implementation(project(":fakeplayer-v1_20_2"))
-    //implementation(project(":fakeplayer-v1_20_3"))
-    //implementation(project(":fakeplayer-v1_20_4"))
-    //implementation(project(":fakeplayer-v1_20_5"))
-    //implementation(project(":fakeplayer-v1_20_6"))
-    implementation(project(":fakeplayer-v1_21"))
-    implementation(project(":fakeplayer-v1_21_1"))
-    //implementation(project(":fakeplayer-v1_21_3"))
-    //implementation(project(":fakeplayer-v1_21_4"))
-    //implementation(project(":fakeplayer-v1_21_5"))
-    implementation(project(":fakeplayer-v1_21_6"))
-    implementation(project(":fakeplayer-v1_21_7"))
-    implementation(project(":fakeplayer-v1_21_8"))
-    implementation(project(":fakeplayer-v1_21_11"))
+    implementation(project(":fakeplayer-v26_1"))
 }
 
-// ShadowJar 配置（替代 Maven shade）
-tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar") {
+// ShadowJar 配置
+tasks.shadowJar {
     archiveFileName.set("fakeplayer-${project.version}.jar")
     archiveBaseName.set("fakeplayer")
     archiveClassifier.set("")
@@ -45,6 +31,8 @@ tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJ
     exclude("META-INF/*.RSA")
 
     //minimize()
+
+    mergeServiceFiles()
 }
 
 tasks.jar {
