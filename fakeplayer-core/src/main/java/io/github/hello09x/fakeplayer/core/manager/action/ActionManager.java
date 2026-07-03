@@ -81,8 +81,10 @@ public class ActionManager {
 
     public void tick(Player player) {
 
-        Map<ActionType, ActionTicker> actionTypeActionTickerMap = managers.get(player.getUniqueId());
         if (player == null || !player.isOnline()) return;
+
+        Map<ActionType, ActionTicker> actionTypeActionTickerMap = managers.get(player.getUniqueId());
+        if (actionTypeActionTickerMap == null || actionTypeActionTickerMap.isEmpty()) return;
 
         if (!player.isValid()) {
             managers.remove(player.getUniqueId());
@@ -90,7 +92,6 @@ public class ActionManager {
             return;
         }
 
-        if (actionTypeActionTickerMap == null || actionTypeActionTickerMap.isEmpty()) return;
         actionTypeActionTickerMap.values().removeIf(ticker -> {
             try {
                 return ticker.tick();

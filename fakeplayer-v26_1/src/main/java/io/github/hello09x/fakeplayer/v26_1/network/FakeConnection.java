@@ -22,7 +22,7 @@ public class FakeConnection extends Connection {
 
     @Override
     public boolean isConnected() {
-        return true;
+        return this.channel != null && this.channel.isOpen();
     }
 
     @Override
@@ -38,6 +38,13 @@ public class FakeConnection extends Connection {
                     e.printStackTrace();
                 }
 
+            }
+        }
+        if (future != null) {
+            try {
+                future.operationComplete(this.channel.newSucceededFuture());
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

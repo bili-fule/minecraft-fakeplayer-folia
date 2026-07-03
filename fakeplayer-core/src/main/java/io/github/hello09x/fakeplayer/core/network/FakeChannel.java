@@ -13,6 +13,7 @@ public class FakeChannel extends AbstractChannel {
     private final ChannelConfig config = new DefaultChannelConfig(this);
     private final ChannelPipeline pipeline = new FakeChannelPipeline(this);
     private final InetAddress address;
+    private volatile boolean open = true;
 
     public FakeChannel(@Nullable Channel parent, @NotNull InetAddress address) {
         super(parent);
@@ -35,10 +36,12 @@ public class FakeChannel extends AbstractChannel {
 
     @Override
     protected void doClose() throws Exception {
+        this.open = false;
     }
 
     @Override
     protected void doDisconnect() throws Exception {
+        this.open = false;
     }
 
     @Override
@@ -53,8 +56,34 @@ public class FakeChannel extends AbstractChannel {
     }
 
     @Override
+    public ChannelFuture close() {
+        this.open = false;
+        return this.newSucceededFuture();
+    }
+
+    @Override
+    public ChannelFuture close(ChannelPromise promise) {
+        this.open = false;
+        promise.setSuccess();
+        return promise;
+    }
+
+    @Override
+    public ChannelFuture disconnect() {
+        this.open = false;
+        return this.newSucceededFuture();
+    }
+
+    @Override
+    public ChannelFuture disconnect(ChannelPromise promise) {
+        this.open = false;
+        promise.setSuccess();
+        return promise;
+    }
+
+    @Override
     public boolean isActive() {
-        return true;
+        return this.open;
     }
 
     @Override
@@ -64,7 +93,7 @@ public class FakeChannel extends AbstractChannel {
 
     @Override
     public boolean isOpen() {
-        return true;
+        return this.open;
     }
 
     @Override

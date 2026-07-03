@@ -7,6 +7,8 @@ import io.netty.util.internal.ThreadLocalRandom;
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask;
 import lombok.Lombok;
 import net.minecraft.network.Connection;
+import net.minecraft.network.DisconnectionDetails;
+import io.papermc.paper.connection.DisconnectionReason;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.network.protocol.common.ServerboundKeepAlivePacket;
@@ -18,6 +20,7 @@ import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
@@ -42,6 +45,49 @@ public class FakeServerGamePacketListenerImpl extends ServerGamePacketListenerIm
         super(server, connection, player, cookie);
         Optional.ofNullable(Bukkit.getPlayer(player.getUUID()))
                 .ifPresent(p -> this.addChannel(p, BUNGEE_CORD_CORRECTED_CHANNEL));
+    }
+
+    @Override
+    public void disconnect(@NotNull net.kyori.adventure.text.Component reason) {
+        this.ensureDisconnectPos();
+        super.disconnect(reason);
+    }
+
+    @Override
+    public void disconnect(@NotNull net.kyori.adventure.text.Component reason, @NotNull PlayerKickEvent.Cause cause) {
+        this.ensureDisconnectPos();
+        super.disconnect(reason, cause);
+    }
+
+    @Override
+    public void disconnect(@NotNull net.minecraft.network.chat.Component reason, @NotNull PlayerKickEvent.Cause cause) {
+        this.ensureDisconnectPos();
+        super.disconnect(reason, cause);
+    }
+
+    @Override
+    public void disconnect(@NotNull net.minecraft.network.chat.Component reason, @NotNull DisconnectionReason disconnectionReason) {
+        this.ensureDisconnectPos();
+        super.disconnect(reason, disconnectionReason);
+    }
+
+    @Override
+    public void disconnectAsync(@NotNull DisconnectionDetails disconnectionInfo) {
+        this.ensureDisconnectPos();
+        super.disconnectAsync(disconnectionInfo);
+    }
+
+    @Override
+    public void onDisconnect(@NotNull DisconnectionDetails disconnectionInfo) {
+        this.ensureDisconnectPos();
+        super.onDisconnect(disconnectionInfo);
+        this.ensureDisconnectPos();
+    }
+
+    private void ensureDisconnectPos() {
+        if (this.disconnectPos == null) {
+            this.disconnectPos = this.player.chunkPosition();
+        }
     }
 
     private boolean addChannel(@NotNull Player player, @NotNull String channel) {
