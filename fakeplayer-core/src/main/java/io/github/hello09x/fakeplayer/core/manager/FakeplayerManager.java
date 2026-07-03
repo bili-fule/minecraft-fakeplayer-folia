@@ -212,10 +212,11 @@ public class FakeplayerManager {
             return false;
         }
 
-        target.kick(textOfChildren(
+        var kickReason = textOfChildren(
                 text("[fakeplayer] "),
                 reason == null ? text("removed") : reason
-        ));
+        );
+        target.getScheduler().run(Main.getInstance(), task -> target.kick(kickReason), null);
         return true;
     }
 
@@ -227,7 +228,8 @@ public class FakeplayerManager {
     public int removeAll(@Nullable String reason) {
         var targets = getAll();
         for (var target : targets) {
-            target.kick(text(REMOVAL_REASON_PREFIX + (reason == null ? "removed" : reason)));
+            var kickReason = text(REMOVAL_REASON_PREFIX + (reason == null ? "removed" : reason));
+            target.getScheduler().run(Main.getInstance(), task -> target.kick(kickReason), null);
         }
         return targets.size();
     }

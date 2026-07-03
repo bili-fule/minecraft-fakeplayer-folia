@@ -115,10 +115,11 @@ public class WildFakeplayerManager implements PluginMessageListener {
             if (delay <= 0) {
                 for (var target : targets) {
                     manager.cleanup(target);
-                    target.kick(textOfChildren(
+                    var kickReason = textOfChildren(
                         text("[fakeplayer] "),
                         text("Creator offline")
-                    ));
+                    );
+                    target.getScheduler().run(Main.getInstance(), t -> target.kick(kickReason), null);
                     log.info("%s is offline more than %d ticks, removing %d fake players".formatted(
                             creator,
                             CLEANUP_PERIOD * CLEANUP_THRESHOLD,
@@ -135,10 +136,11 @@ public class WildFakeplayerManager implements PluginMessageListener {
                         for (Player target : targets) {
                             Bukkit.getGlobalRegionScheduler().run(Main.getInstance(), t -> {
                                 manager.cleanup(target);
-                                target.kick(textOfChildren(
+                                var kickReason = textOfChildren(
                                     text("[fakeplayer] "),
                                     text("Creator offline")
-                                ));
+                                );
+                                target.getScheduler().run(Main.getInstance(), tk -> target.kick(kickReason), null);
                             });
                         }
                         log.info("%s 离线时间超过 %d 分钟，删除了 %d 假玩家".formatted(
